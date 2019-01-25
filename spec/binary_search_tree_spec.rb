@@ -62,4 +62,57 @@ describe "Tree" do
             expect(@tree.breadth_first_search(9).parent.value).to eql(8)
         end
     end
+
+    describe "#depth_first_search_stack" do
+        before do
+            @tree.build_tree([7, 4, 23, 8, 9, 3])
+        end
+        
+        it "returns nil if not in tree" do
+            expect(@tree.depth_first_search_stack(54)).to eql(nil)
+        end
+
+        it "works for root" do
+            expect(@tree.depth_first_search_stack(7).value).to eql(7)
+            expect(@tree.depth_first_search_stack(7).parent).to eql(nil)
+        end
+
+        it "works for first level" do
+            expect(@tree.depth_first_search_stack(23).value).to eql(23)
+            expect(@tree.depth_first_search_stack(23).parent.value).to eql(7)
+        end
+
+        it "works for third level" do
+            expect(@tree.depth_first_search_stack(9).value).to eql(9)
+            expect(@tree.depth_first_search_stack(9).parent.value).to eql(8)
+        end
+    end
+
+    describe "#depth_first_search" do
+        before do
+            @tree.build_tree([7, 4, 23, 8, 9, 3])
+        end
+        
+        it "returns nil if not in tree" do
+            expect(@tree.depth_first_search(54)).to eql(nil)
+        end
+
+        it "works for root" do
+            expect(@tree.depth_first_search(7).value).to eql(7)
+            expect(@tree.depth_first_search(7).parent).to eql(nil)
+        end
+
+        it "works for first level" do
+            expect(@tree.depth_first_search(23).value).to eql(23)
+            expect(@tree.depth_first_search(23).parent.value).to eql(7)
+        end
+
+        it "works for third level" do
+            expect(@tree.depth_first_search(9).value).to eql(9)
+            expect(@tree.depth_first_search(9).parent.value).to eql(8)
+        end
+    end
+
+
+    
 end

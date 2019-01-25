@@ -19,8 +19,9 @@ class Tree
         arr.each do |val|
             if @root.nil?
                 @root = Node.new(val)
+            else
+                place_node(val)
             end
-            place_node(val)
         end
     end
 
@@ -35,10 +36,31 @@ class Tree
         return nil
     end
 
+    def depth_first_search_stack(val)
+        stack = [@root]
+        until stack.empty?
+            current_node = stack.pop
+            stack.push(current_node.children[0]) if !current_node.children[0].nil?
+            stack.push(current_node.children[1]) if !current_node.children[1].nil?
+            return current_node if current_node.value == val
+        end
+        return nil
+    end
+
+    def depth_first_search(val, node = @root)
+        return if node.nil?
+        if node.value == val
+            return node 
+        elsif val < node.value
+            depth_first_search(val, node.children[0])
+        else
+            depth_first_search(val, node.children[1])
+        end
+    end
 
     private
     def place_node(val, parent = @root)
-        if val <= parent.value
+        if val < parent.value
             if parent.children[0].nil?
                 new_node = Node.new(val)
                 new_node.parent = parent
