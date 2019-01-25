@@ -24,6 +24,18 @@ class Tree
         end
     end
 
+    def breadth_first_search(val)
+        queue = [@root]
+        until queue.empty?
+            current_node = queue.shift
+            queue.push(current_node.children[0]) if !current_node.children[0].nil?
+            queue.push(current_node.children[1]) if !current_node.children[1].nil?
+            return current_node if current_node.value == val
+        end
+        return nil
+    end
+
+
     private
     def place_node(val, parent = @root)
         if val <= parent.value
